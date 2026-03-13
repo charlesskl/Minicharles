@@ -8,9 +8,6 @@ const envSchema = z.object({
   AZURE_CLIENT_ID: z.string().min(1, "AZURE_CLIENT_ID is required"),
   AZURE_TENANT_ID: z.string().min(1, "AZURE_TENANT_ID is required"),
 
-  // Phase 3
-  ANTHROPIC_API_KEY: z.string().optional(),
-
   // Phase 4
   TELEGRAM_BOT_TOKEN: z.string().optional(),
   TELEGRAM_CHAT_ID: z.string().optional(),
@@ -44,3 +41,24 @@ export const GRAPH_SCOPES = [
   "Mail.Send",
   "User.Read",
 ] as const;
+
+export interface TelegramConfig {
+  readonly botToken: string;
+  readonly chatId: string;
+}
+
+/** Validate and return Telegram config, exit if missing */
+export function requireTelegramConfig(): TelegramConfig {
+  if (!config.TELEGRAM_BOT_TOKEN || !config.TELEGRAM_CHAT_ID) {
+    console.error(
+      "TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are required.\n" +
+        "Set them in your .env file.",
+    );
+    process.exit(1);
+  }
+  return {
+    botToken: config.TELEGRAM_BOT_TOKEN,
+    chatId: config.TELEGRAM_CHAT_ID,
+  };
+}
+
