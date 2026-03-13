@@ -7,6 +7,7 @@ async function main(): Promise<void> {
   console.log("  npm run test-connection  — Verify auth and list folders");
   console.log("  npm run bot              — Start Telegram bot (long-polling)");
   console.log("  npm run send-summary     — Generate and send today's summary");
+  console.log("  npm run mcp              — Start MCP server for Claude Code/Desktop");
   console.log("");
 
   // Initialize database on first run
