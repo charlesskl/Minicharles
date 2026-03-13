@@ -44,3 +44,35 @@ export const GRAPH_SCOPES = [
   "Mail.Send",
   "User.Read",
 ] as const;
+
+export interface TelegramConfig {
+  readonly botToken: string;
+  readonly chatId: string;
+}
+
+/** Validate and return Telegram config, exit if missing */
+export function requireTelegramConfig(): TelegramConfig {
+  if (!config.TELEGRAM_BOT_TOKEN || !config.TELEGRAM_CHAT_ID) {
+    console.error(
+      "TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are required.\n" +
+        "Set them in your .env file.",
+    );
+    process.exit(1);
+  }
+  return {
+    botToken: config.TELEGRAM_BOT_TOKEN,
+    chatId: config.TELEGRAM_CHAT_ID,
+  };
+}
+
+/** Validate and return Anthropic API key, exit if missing */
+export function requireAnthropicKey(): string {
+  if (!config.ANTHROPIC_API_KEY) {
+    console.error(
+      "ANTHROPIC_API_KEY is required for summary generation.\n" +
+        "Set it in your .env file.",
+    );
+    process.exit(1);
+  }
+  return config.ANTHROPIC_API_KEY;
+}
