@@ -103,6 +103,12 @@ export class OutlookClient {
         }) satisfies EmailMessage,
     );
   }
+  /** Move a message to a different folder */
+  async moveMessage(messageId: string, destinationFolderId: string): Promise<void> {
+    await this.client
+      .api(`/me/messages/${messageId}/move`)
+      .post({ destinationId: destinationFolderId });
+  }
 }
 
 function parseEmailAddress(

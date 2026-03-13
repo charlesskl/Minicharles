@@ -39,6 +39,14 @@ export interface UserProfile {
   readonly userPrincipalName: string;
 }
 
+/** Summary of a classification pipeline run */
+export interface PipelineRunResult {
+  readonly runId: number;
+  readonly emailsProcessed: number;
+  readonly claudeOutput: string;
+  readonly durationMs: number;
+}
+
 /** Database row types */
 export interface EmailLogRow {
   readonly id: number;

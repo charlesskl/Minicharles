@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "outlook": {
+      "command": "npx",
+      "args": ["tsx", "src/mcp/server.ts"],
+      "env": {
+        "AZURE_CLIENT_ID": "4da3d03a-45ba-47be-aee1-2c4ff85b4ba1",
+        "AZURE_TENANT_ID": "8d289955-28fc-474e-a8ec-8a5806d428d4"
+      }
+    }
+  }
+}
