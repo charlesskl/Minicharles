@@ -14,6 +14,7 @@ export interface EmailMessage {
   readonly subject: string;
   readonly from: EmailAddress;
   readonly toRecipients: readonly EmailAddress[];
+  readonly ccRecipients?: readonly EmailAddress[];
   readonly receivedDateTime: string;
   readonly bodyPreview: string;
   readonly body: EmailBody;
@@ -64,4 +65,14 @@ export interface RunLogRow {
   readonly emailsProcessed: number;
   readonly status: "running" | "completed" | "failed";
   readonly error: string | null;
+}
+
+/** Represents an email attachment from Outlook */
+export interface Attachment {
+  readonly id: string;
+  readonly name: string;
+  readonly contentType: string;
+  readonly size: number;
+  readonly isInline: boolean;
+  readonly contentBytes?: string; // base64-encoded
 }
