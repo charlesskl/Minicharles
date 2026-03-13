@@ -1,0 +1,35 @@
+{
+  "name": "minicharles",
+  "version": "0.1.0",
+  "description": "Outlook email auto-sorter & summarizer powered by Claude",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "auth": "tsx src/cli/auth.ts",
+    "test-connection": "tsx src/cli/test-connection.ts",
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.13.0",
+    "@azure/identity-cache-persistence": "^1.1.0",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "better-sqlite3": "^11.7.0",
+    "dotenv": "^16.4.7",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.0",
+    "eslint": "^9.16.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}
