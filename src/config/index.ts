@@ -8,9 +8,6 @@ const envSchema = z.object({
   AZURE_CLIENT_ID: z.string().min(1, "AZURE_CLIENT_ID is required"),
   AZURE_TENANT_ID: z.string().min(1, "AZURE_TENANT_ID is required"),
 
-  // Phase 3
-  ANTHROPIC_API_KEY: z.string().optional(),
-
   // Phase 4
   TELEGRAM_BOT_TOKEN: z.string().optional(),
   TELEGRAM_CHAT_ID: z.string().optional(),
@@ -65,14 +62,3 @@ export function requireTelegramConfig(): TelegramConfig {
   };
 }
 
-/** Validate and return Anthropic API key, exit if missing */
-export function requireAnthropicKey(): string {
-  if (!config.ANTHROPIC_API_KEY) {
-    console.error(
-      "ANTHROPIC_API_KEY is required for summary generation.\n" +
-        "Set it in your .env file.",
-    );
-    process.exit(1);
-  }
-  return config.ANTHROPIC_API_KEY;
-}

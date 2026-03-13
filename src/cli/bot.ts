@@ -1,4 +1,4 @@
-import { requireTelegramConfig, requireAnthropicKey } from "../config/index.js";
+import { requireTelegramConfig } from "../config/index.js";
 import { getDb, closeDb } from "../db/index.js";
 import { createBot } from "../telegram/bot.js";
 
@@ -6,11 +6,10 @@ async function main(): Promise<void> {
   console.log("Minicharles Telegram Bot\n");
 
   const telegram = requireTelegramConfig();
-  const anthropicKey = requireAnthropicKey();
 
   getDb();
 
-  const bot = createBot(telegram.botToken, telegram.chatId, anthropicKey);
+  const bot = createBot(telegram.botToken, telegram.chatId);
 
   const shutdown = async () => {
     console.log("\nShutting down...");

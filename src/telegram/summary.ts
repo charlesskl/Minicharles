@@ -1,19 +1,16 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { getDb } from "../db/index.js";
 import type { EmailLogRow, RunLogRow } from "../types/index.js";
 import { escapeHtml } from "./notification.js";
 
+const execFileAsync = promisify(execFile);
+
 /**
  * Generates daily email summaries by querying the local SQLite database
- * and using Claude to produce a well-formatted Telegram message.
+ * and invoking Claude Code (`claude -p`) to produce a formatted Telegram message.
  */
 export class SummaryGenerator {
-  private readonly anthropic: Anthropic;
-
-  constructor(apiKey: string) {
-    this.anthropic = new Anthropic({ apiKey });
-  }
-
   /** Generate today's email summary formatted for Telegram (HTML) */
   async generateDailySummary(): Promise<string> {
     const emails = getTodayEmails();
@@ -74,20 +71,12 @@ ${emails.length} emails sorted${processedTime ? ` | Processed at ${processedTime
 
 IMPORTANT: Return ONLY the formatted summary. Use only Telegram HTML tags: <b>, <i>, <code>. No Markdown.`;
 
-    const response = await this.anthropic.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 2048,
-      messages: [{ role: "user", content: prompt }],
+    const { stdout } = await execFileAsync("claude", ["-p", prompt], {
+      timeout: 120_000,
+      maxBuffer: 1024 * 1024,
     });
 
-    let text = "";
-    for (const block of response.content) {
-      if (block.type === "text") {
-        text += block.text;
-      }
-    }
-
-    return text;
+    return stdout.trim();
   }
 }
 

@@ -9,11 +9,7 @@ import type { RunLogRow } from "../types/index.js";
  * Create and configure the Minicharles Telegram bot.
  * Only responds to the authorized chat ID for security.
  */
-export function createBot(
-  botToken: string,
-  chatId: string,
-  anthropicApiKey: string,
-): Bot {
+export function createBot(botToken: string, chatId: string): Bot {
   const bot = new Bot(botToken);
   const authorizedChatId = Number(chatId);
 
@@ -78,10 +74,9 @@ export function createBot(
       await ctx.reply(lines.join("\n"), { parse_mode: "HTML" });
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
-      await ctx.reply(
-        `Failed to fetch status: ${escapeHtml(msg)}`,
-        { parse_mode: "HTML" },
-      );
+      await ctx.reply(`Failed to fetch status: ${escapeHtml(msg)}`, {
+        parse_mode: "HTML",
+      });
     }
   });
 
@@ -89,7 +84,7 @@ export function createBot(
     await ctx.reply("Generating summary...");
 
     try {
-      const generator = new SummaryGenerator(anthropicApiKey);
+      const generator = new SummaryGenerator();
       const summary = await generator.generateDailySummary();
 
       const chunks = splitMessage(summary, 4096);
@@ -98,10 +93,9 @@ export function createBot(
       }
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
-      await ctx.reply(
-        `Failed to generate summary: ${escapeHtml(msg)}`,
-        { parse_mode: "HTML" },
-      );
+      await ctx.reply(`Failed to generate summary: ${escapeHtml(msg)}`, {
+        parse_mode: "HTML",
+      });
     }
   });
 

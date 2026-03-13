@@ -1,4 +1,4 @@
-import { requireTelegramConfig, requireAnthropicKey } from "../config/index.js";
+import { requireTelegramConfig } from "../config/index.js";
 import { getDb, closeDb } from "../db/index.js";
 import { SummaryGenerator } from "../telegram/summary.js";
 import { NotificationService } from "../telegram/notification.js";
@@ -7,12 +7,11 @@ async function main(): Promise<void> {
   console.log("Minicharles — Daily Summary\n");
 
   const telegram = requireTelegramConfig();
-  const anthropicKey = requireAnthropicKey();
 
   getDb();
 
   console.log("Generating summary...");
-  const generator = new SummaryGenerator(anthropicKey);
+  const generator = new SummaryGenerator();
   const summary = await generator.generateDailySummary();
 
   if (!summary) {
