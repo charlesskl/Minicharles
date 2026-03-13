@@ -6,6 +6,7 @@ async function main(): Promise<void> {
   console.log("  npm run auth             — Authenticate with Microsoft 365");
   console.log("  npm run test-connection  — Verify auth and list folders");
   console.log("  npm run bot              — Start Telegram bot (long-polling)");
+  console.log("  npm run classify         — Classify and sort inbox emails");
   console.log("  npm run send-summary     — Generate and send today's summary");
   console.log("");
 

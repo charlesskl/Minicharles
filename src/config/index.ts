@@ -8,6 +8,9 @@ const envSchema = z.object({
   AZURE_CLIENT_ID: z.string().min(1, "AZURE_CLIENT_ID is required"),
   AZURE_TENANT_ID: z.string().min(1, "AZURE_TENANT_ID is required"),
 
+  // Phase 3: Classification via claude CLI (optional, for future direct API use)
+  ANTHROPIC_API_KEY: z.string().optional(),
+
   // Phase 4
   TELEGRAM_BOT_TOKEN: z.string().optional(),
   TELEGRAM_CHAT_ID: z.string().optional(),

@@ -9,6 +9,7 @@
   "scripts": {
     "auth": "tsx src/cli/auth.ts",
     "test-connection": "tsx src/cli/test-connection.ts",
+    "classify": "tsx src/cli/classify.ts",
     "bot": "tsx src/cli/bot.ts",
     "send-summary": "tsx src/cli/send-summary.ts",
     "dev": "tsx src/index.ts",
